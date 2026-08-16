@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+.idea/editor.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/openglLearning.iml
+.idea/vcs.xml
