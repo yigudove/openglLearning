@@ -14,10 +14,20 @@
 
 using namespace std;
 
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
 }
+
+///<summary> 输入处理 </summary>
+void processInput(GLFWwindow *window)
+{
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
+}
+
+
 
 int main()
 {
@@ -49,12 +59,18 @@ int main()
     }
 
     glViewport(0, 0, 800, 600);
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
     // 注册调整窗口大小的函数
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     while(!glfwWindowShouldClose(window))
     {
+        processInput(window);
+
+        glClear(GL_COLOR_BUFFER_BIT);
+
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
