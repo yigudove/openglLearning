@@ -8,7 +8,9 @@ add_subdirectory ("Include/glfw-3.5.1" glfw-build)
 # 将源代码添加到此项目的可执行文件。
 # glad.c 是 GLAD 生成的 OpenGL 函数加载器源码，需一起编译
 add_executable (openglLearning main.cpp main.h
-        glad.c)
+        glad.c
+        window_util.cpp
+        window_util.h)
 
 # 链接 GLFW 静态库，并自动获得 include 目录
 target_link_libraries (openglLearning PRIVATE glfw)

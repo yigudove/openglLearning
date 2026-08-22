@@ -3,6 +3,7 @@
 //
 
 #include "main.h"
+#include "window_util.h"
 
 #include <iostream>
 #include <glad/glad.h>
@@ -14,12 +15,6 @@
 
 using namespace std;
 
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-    glViewport(0, 0, width, height);
-}
-
 ///<summary> 输入处理 </summary>
 void processInput(GLFWwindow *window)
 {
@@ -27,7 +22,11 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 }
 
-
+float vertices[] = {
+    -0.5f, -0.5f, 0.0f,
+     0.5f, -0.5f, 0.0f,
+     0.0f,  0.5f, 0.0f
+};
 
 int main()
 {
@@ -36,25 +35,10 @@ int main()
 #endif
     cout << "程序入口" << endl;
 
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
-    GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", nullptr, nullptr);
+    // 创建窗口（内部已完成 GLFW 初始化、上下文创建、GLAD 加载等）
+    GLFWwindow* window = window_util::createWindow(800, 600, "LearnOpenGL");
     if (window == nullptr)
     {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
-
-    // 定义加载系统相关的OpenGL函数指针地址的函数
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
 
@@ -62,7 +46,7 @@ int main()
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
     // 注册调整窗口大小的函数
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    window_util::setupFramebufferSizeCallback(window);
 
     while(!glfwWindowShouldClose(window))
     {
@@ -77,4 +61,3 @@ int main()
 
     return 0;
 }
-
